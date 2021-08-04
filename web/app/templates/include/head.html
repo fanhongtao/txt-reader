@@ -1,0 +1,10 @@
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  {% if title %}
+    <title>{{title}} - 阅读</title>
+  {% else %}
+    <title>阅读</title>
+  {% endif %}
+  {% include 'include/cdn_local.html' %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
