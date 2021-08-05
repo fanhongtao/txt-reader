@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if book %}
+<p style="text-align:center;">{{book.name}}</p>
+
+{% for line in book_content %}
+  <p>{{line}}</p>
+{% endfor %}
+<p></p>
+
+<p style="text-align:center;">
+  {% if pre_index > 0 %}
+    <a href="book-content?id={{book.id}}&index={{pre_index}}">上一章</a>
+  {% endif %}
+  <a href="book-index?id={{book.id}}">目录</a>
+  {% if next_index > 0 %}
+    <a href="book-content?id={{book.id}}&index={{next_index}}">下一章</a>
+  {% endif %}
+</p>
+
+{% else %}
+找不到对应的书籍！
+{% endif %}
+{% endblock %}

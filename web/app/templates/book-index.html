@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if book %}
+<p>{{book.name}}</p>
+
+<ul>
+{% for index in book_index %}
+  <li><a href="book-content?id={{book.id}}&index={{index.count}}">{{index.content}}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+找不到对应的书籍！
+{% endif %}
+{% endblock %}

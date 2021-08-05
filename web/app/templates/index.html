@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-
-<p>页面功能介绍：</p>
-
+<script type="text/javascript">
+  $(function () {
+    $("#keyword").keyup(function () {
+      keyword = this.value;
+      if (keyword == "") {
+        $("li").css({"display":"list-item"});
+      } else {
+        $("li").css({"display":"none"});
+        $("li:contains(" + keyword +")").css({"display":"list-item"});
+        $("a[href*='" + keyword +  "']").parent().css({"display":"list-item"});
+      }
+   });
+  });
+</script>
+<div>
+  Search: <input id="keyword" type="text" style="width:300px;" placeholder="输入文件名关键字，进行过滤"/>
+</div>
+<ul>
+{% for book in book_list %}
+  <li><a href="book-index?id={{book.id}}">{{book.name}}</a></li>
+{% endfor %}
+</ul>
 {% endblock %}
