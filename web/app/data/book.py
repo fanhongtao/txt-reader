@@ -3,6 +3,9 @@ import pathlib
 import re
 import sys
 
+from itertools import chain
+from pypinyin import pinyin, Style
+
 from app.const import const
 
 class Book:
@@ -19,17 +22,26 @@ class BookIndex:
         self.content = ''   # 内容
 
 
+def to_pinyin(s):
+    return ''.join(chain.from_iterable(pinyin(s, style=Style.TONE3)))
+
+
 def get_book_list():
+    root = pathlib.Path(const.BOOK_PATH)
+    # root目录下的文件
+    book_paths = [path for path in root.rglob('*.txt') if path.is_file()]
+    # 获取root中，可能的链接目录下的文件
+    link_dirs = [link for link in root.rglob('*') if link.is_symlink() and link.is_dir()]
+    for dir in link_dirs:
+        book_paths = book_paths + [path for path in dir.rglob('*.txt') if path.is_file()]
+
     book_list = []
-    directory = pathlib.Path(const.BOOK_PATH)
-    for path in sorted(directory.rglob('*')):
-        if path.is_file():
-            if path.name.lower().endswith('.txt'):
-                book = Book()
-                book.name = path.stem
-                book.path = path
-                book.id = hashlib.md5(str(path).encode(encoding='UTF-8')).hexdigest()
-                book_list.append(book)
+    for path in sorted(book_paths, key=lambda path: to_pinyin(path.stem)):
+        book = Book()
+        book.name = path.stem
+        book.path = path
+        book.id = hashlib.md5(str(path).encode(encoding='UTF-8')).hexdigest()
+        book_list.append(book)
     return book_list
 
 

@@ -11,7 +11,6 @@ from app.data.book import get_book_list, get_book_index, get_book_content
 def index():
     template = 'index.html';
     book_list = get_book_list()
-    print(book_list)
     kwargs = {
         'title': '书籍列表',
         'book_list': book_list

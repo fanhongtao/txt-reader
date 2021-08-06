@@ -12,4 +12,9 @@
 
 # 运行程序
 
-详见 [Flask](Flask.md)
+安装依赖库：
+
+* `pip3 install pypinyin`
+
+运行 [Flask](Flask.md)
+
