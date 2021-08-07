@@ -18,3 +18,13 @@
 
 运行 [Flask](Flask.md)
 
+# docker
+
+为了减少对环境的依赖，提供了 Docker 中的运行方式。
+
+1. 执行命令创建docker镜像：<br/>
+   `docker build -t txt-reader:latest -f Dockerfile .`
+2. 在存放电子书的目录下，执行以下命令运行 docker 镜像：<br/>
+   `docker run -it --rm -p 5000:5000 -v "$PWD":/reader/books/ txt-reader:latest`<br/>
+   如果需要反复运行，可以执行如下命令：<br/>
+   `docker run -d --name txt-reader -p 5000:5000 -v "$PWD":/reader/books/ txt-reader:latest`
