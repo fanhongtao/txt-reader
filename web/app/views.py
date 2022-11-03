@@ -42,9 +42,10 @@ def bookcontent():
     id = request.args.get('id')
     index = int(request.args.get('index'))
     template = 'book-content.html';
-    book, book_content, index_len = get_book_content(id, index)
+    book, book_index, book_content = get_book_content(id, index)
+    index_len = len(book_index)
     kwargs = {
-        'title': book.name,
+        'title': f'{book_index[index-1].content[:30]} - {book.name}',
         'book': book,
         'pre_index': index - 1 if index > 1 else 0,
         'next_index': index + 1 if index < index_len else 0,

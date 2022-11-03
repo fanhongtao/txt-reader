@@ -4,6 +4,7 @@ import re
 import sys
 
 from itertools import chain
+from typing import List
 from pypinyin import pinyin, Style
 
 from app.const import const
@@ -26,7 +27,7 @@ def to_pinyin(s):
     return ''.join(chain.from_iterable(pinyin(s, style=Style.TONE3)))
 
 
-def get_book_list():
+def get_book_list() -> List[Book]:
     root = pathlib.Path(const.BOOK_PATH)
     # root目录下的文件
     book_paths = [path for path in root.rglob('*.txt') if path.is_file()]
@@ -55,7 +56,7 @@ def get_book_index(id):
     print("Can't find book with id: " + id)
     return None, book_index
 
-def _get_book_index(book):
+def _get_book_index(book) -> List[BookIndex]:
     count = 0
     line_num = 0
     book_index = []
@@ -77,9 +78,9 @@ def get_book_content(id, index):
     book, book_index = get_book_index(id)
     if not book is None:
         book_content = _get_book_content(book, book_index, index)
-    return book, book_content, len(book_index)
+    return book, book_index, book_content
 
-def _get_book_content(book, book_index, index):
+def _get_book_content(book, book_index, index) -> List[str]:
     curr_line = book_index[index - 1].line_num - 1
     if index < len(book_index):
         next_line = book_index[index].line_num - 1
