@@ -22,9 +22,20 @@
 
 为了减少对环境的依赖，提供了 Docker 中的运行方式。
 
+## 自己生成镜像
+
 1. 执行命令创建docker镜像：<br/>
    `docker build -t txt-reader:latest -f Dockerfile .`
 2. 在存放电子书的目录下，执行以下命令运行 docker 镜像：<br/>
-   `docker run -it --rm -p 5000:5000 -v "$PWD":/reader/books/ txt-reader:latest`<br/>
+   `docker run -it --rm -p 5000:8000 -v "$PWD":/reader/books/ txt-reader:latest`<br/>
    如果需要反复运行，可以执行如下命令：<br/>
-   `docker run -d --name txt-reader -p 5000:5000 -v "$PWD":/reader/books/ txt-reader:latest`
+   `docker run -d --name txt-reader --restart=unless-stopped -p 5000:8000 -v "$PWD":/reader/books/ txt-reader:latest`
+
+## 使用现有镜像
+
+可以直接使用我创建好的镜像。
+
+在存放电子书的目录下，执行以下命令
+
+`docker run -d --name txt-reader --restart=unless-stopped -p 5000:8000 -v "$PWD":/reader/books/ fanhongtao/txt-reader`
+
