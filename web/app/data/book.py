@@ -4,7 +4,7 @@ import re
 import sys
 
 from itertools import chain
-from typing import List
+from typing import List, Dict, Tuple
 from pypinyin import pinyin, Style
 
 from app.const import const
@@ -21,6 +21,11 @@ class BookIndex:
         super().__init__()
         self.count = 0      # 编号
         self.content = ''   # 内容
+
+
+# 保存书箱信息。用于避免重复获取章节数据。
+# key: 书的 id（MD5值）
+book_info_map: Dict[str, Tuple[Book, BookIndex]] = {}
 
 
 def to_pinyin(s):
@@ -47,11 +52,15 @@ def get_book_list() -> List[Book]:
 
 
 def get_book_index(id):
-    book_index = []
+    book, book_index = book_info_map.get(id, (None, []))
+    if book is not None:
+        return book, book_index
+
     list = get_book_list()
     for book in list:
         if book.id == id:
             book_index = _get_book_index(book)
+            book_info_map[id] = (book, book_index)
             return book, book_index
     print("Can't find book with id: " + id)
     return None, book_index
