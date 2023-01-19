@@ -1,8 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/book-content.js') }}"></script>
 
 {% if book %}
 <p style="text-align:center;">{{book.name}}</p>
+
+<p style="text-align:center;">
+  {% if pre_index > 0 %}
+    <a id="pre-page" href="book-content?id={{book.id}}&index={{pre_index}}">上一章</a>
+  {% endif %}
+  <a href="book-index?id={{book.id}}">目录</a>
+  {% if next_index > 0 %}
+    <a id="next-page" href="book-content?id={{book.id}}&index={{next_index}}">下一章</a>
+  {% endif %}
+</p>
 
 {% for line in book_content %}
   <p>{{line}}</p>
@@ -18,6 +29,21 @@
     <a href="book-content?id={{book.id}}&index={{next_index}}">下一章</a>
   {% endif %}
 </p>
+
+<div id="page-up">
+  <a href="javascript:;" title="Page Up">
+    <div class="arrow"></div>
+    <div class="stick"></div>
+  </a>
+</div>
+
+<div id="page-down">
+  <a href="javascript:;" title="Page Down">
+    <div class="stick"></div>
+    <div class="arrow"></div>
+  </a>
+</div>
+
 
 {% else %}
 找不到对应的书籍！

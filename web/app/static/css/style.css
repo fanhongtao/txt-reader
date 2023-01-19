@@ -22,3 +22,60 @@ table tr th:last-child, table tr td:last-child { border-right: none; }
 }
 
 #result a { border-bottom: 1px dotted #686868; color: #CC3300; text-decoration: none; }
+
+#page-up, #page-down {
+  position: fixed;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background-color: #bbb;
+  border-radius:7px;
+  opacity: 0.5;
+  z-index: 888;
+}
+
+#page-up {
+  bottom: 110px;
+}
+
+#page-down {
+  bottom: 10px;
+}
+
+#page-up .arrow{
+  margin:0 auto;
+  padding-top:11px;
+  width:0;
+  height: 0;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  border-bottom: 15px solid #7f7f7f;
+}
+
+#page-up .stick{
+  margin:0 auto;
+  padding-bottom:21px;
+  width: 13px;
+  border-bottom: 13px solid #bbb;
+  background-color: #7f7f7f;
+}
+
+
+#page-down .arrow{
+  margin:0 auto;
+  padding-bottom:11px;
+  width:0;
+  height: 0;
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+  border-top: 15px solid #7f7f7f;
+}
+
+#page-down .stick{
+  margin:0 auto;
+  padding-top:21px;
+  width: 13px;
+  border-top: 13px solid #bbb;
+  background-color: #7f7f7f;
+}
+
