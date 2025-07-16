@@ -72,7 +72,7 @@ def _get_book_index(book) -> List[BookIndex]:
     with open(book.path) as f:
         for line in f:
             line_num = line_num + 1
-            if re.match('第(\d+|(一|二|三|四|五|六|七|八|九|零|十|百|千)+)章', line):
+            if re.match(r'(.*\s+)?第(\d+|(一|二|三|四|五|六|七|八|九|零|十|百|千)+)章\s+', line):
                 count = count + 1
                 index = BookIndex()
                 index.count = count
